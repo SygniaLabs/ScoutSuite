@@ -1,3 +1,45 @@
+# UPDATED FORK
+### Description
+The following fork implements a custom AWS credentials refresher that automatically refresh the botocore session when it expires.
+The refresher in this example uses simple HTTP request to a custom URL together with JWT token, which returns a set of AWS access keys.
+
+
+### Usage
+Place the customized URL and JWT within `credrefresh.py` file
+```
+....
+init_jwt = {
+    'url': "<YOUR FULL URL HERE>",
+    'jwt': "<TOKEN>"
+}
+....
+
+```
+### Customization
+You can customize the AWS credentials refresher logic by modifying `generate_aws_tokens_jwt()` function within `credrefresh.py`.<br>
+Just make sure the returned object has the following strcuture:
+```
+return {
+    'access_key': <ACCESS KEY>,
+    'secret_key': <ACCESS KEY SECRET>,
+    'token': <SESSION TOKEN>,
+    'expiry_time': <Expiration of ISO 8601 Date and time in UTC>
+}
+```
+
+#### Example data of the reurned object
+```
+{
+  'access_key': "ASIAWQDABCDEF123",
+  'secret_key': "SDF43fsdfJinJ2E/aBcD3fghIJ/ymAi",
+  'token': "nGCU0rXz7fsd554HJP6t8TBDFNZO......<trimmed>",
+  'expiry_time': "2023-11-05T08:05:31Z"
+}
+```
+
+
+
+<hr style="border:2px solid gray">
 <p align="center">
   <img src="https://user-images.githubusercontent.com/4206926/49877604-10457580-fe26-11e8-92d7-cd876c4f6454.png" width=350/>
 </p>
